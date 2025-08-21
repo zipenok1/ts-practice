@@ -1,7 +1,7 @@
-require('dotenv').config()
+import 'dotenv/config'
 import express from 'express'
-import sequelize from './db'
-const cors = require('cors')
+import sequelize from './db.js'
+import cors from 'cors'
 
 const app = express()
 app.use(cors())
