@@ -5,5 +5,6 @@ const router = Router()
 
 router.get('/', eventController.receipt)
 router.post('/', eventController.adder)
+router.delete('/:id', eventController.delete)
 
 export default router

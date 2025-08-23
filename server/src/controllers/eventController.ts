@@ -22,6 +22,21 @@ class EventController{
             console.error('Ошибка добавления', error)   
         }
     }
+
+    async delete(req: Request, res: Response){
+        try{
+            const {id} = req.params
+            if (!id) return res.json({message: 'Такого id не существует'})
+            
+            const events = await model.Event.findOne({ where: {id_event: id} })
+            if(!events) return res.json({message: 'Такого элемента нет'})
+            
+            await model.Event.destroy({ where: {id_event: id} })
+            return res.json({message: 'Событие успешно удалено'})
+        } catch(error){
+            console.error('Ошибка удаления', error);
+        }
+    }
 }
 
 export default new EventController()
