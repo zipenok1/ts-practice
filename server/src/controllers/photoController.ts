@@ -8,10 +8,18 @@ import path from 'path';
 import fs from 'fs'
 
 class PhotoController {
+    async receipt(req: Request, res: Response<IPhoto>){
+        try{
+            const photo = await model.Photo.findAll()
+            return res.json(photo as unknown as IPhoto)
+        } catch(error){
+            console.error('Ошибка полчения файла', error);
+        }
+    }   
+
     async adder(req: Request, res: Response) {
         try {
             if (!req.files || !req.files.link_img) return res.json({ error: 'Файл не был загружен' })
-
             const link_img = req.files.link_img as UploadedFile
             
             const fileExtension = path.extname(link_img.name)
@@ -30,7 +38,7 @@ class PhotoController {
             return res.json(photo as unknown as IPhoto)
 
         } catch(error) {
-            console.error('Ошибка добавления', error)
+            console.error('Ошибка добавления файла', error)
         }
     }
 }
